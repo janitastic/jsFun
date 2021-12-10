@@ -27,38 +27,30 @@ const kittyPrompts = {
 
     // Return an array of just the names of kitties who are orange e.g.
     // ['Tiger', 'Snickers']
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.reduce((orangeKittyNames, kitty) => {
+      let kittyName = kitty.name;
+      if (kitty.color === 'orange') {
+        orangeKittyNames.push(kittyName);
+      }
+      return orangeKittyNames;
+    }, []);
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   },
 
   sortByAge() {
     // Sort the kitties by their age
+    const result = kitties.sort((a,b) => (b.age - a.age));
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   },
 
   growUp() {
-    // Return an array of kitties who have all grown up by 2 years e.g.
-    // [{
-    //   name: 'Felicia',
-    //   age: 4,
-    //   color: 'grey'
-    // },
-    // {
-    //   name: 'Tiger',
-    //   age: 7,
-    //   color: 'orange'
-    // },
-    // ...etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties
+      .sort((a,b) => (b.age - a.age))
+      .map(kitty => {
+        return {name: kitty.name, age: (kitty.age + 2), color: kitty.color};
+      });
     return result;
   }
 };
@@ -82,26 +74,20 @@ const kittyPrompts = {
 // DATASET: clubs from ./datasets/clubs
 const clubPrompts = {
   membersBelongingToClubs() {
-    // Create an object whose keys are the names of people, and whose values are
-    // arrays that include the names of the clubs that person is a part of. e.g.
-    // {
-    //   Louisa: ['Drama', 'Art'],
-    //   Pam: ['Drama', 'Art', 'Chess'],
-    //   ...etc
-    // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = clubs.reduce((memberList, elem) => {
+      elem.members.forEach(member => {
+        if (memberList[member]) {
+          memberList[member].push(elem.club);
+        } else {
+          memberList[member] = [elem.club];
+        }
+      });
+      return memberList;
+    }, {});
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   }
 };
-
-
-
-
-
 
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
@@ -126,11 +112,13 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = mods.map(elem => {
+      return {mod: elem.mod, studentsPerInstructor: elem.students/elem.instructors};
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // input -
   }
 };
 
