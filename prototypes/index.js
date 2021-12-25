@@ -14,19 +14,14 @@ const { weapons, characters } = require('./datasets/ultima');
 const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
 
 
-
-
-
-
 // SINGLE DATASETS
 // =================================================================
 
 // DATASET: kitties from ./datasets/kitties
+// Return an array of just the names of kitties who are orange e.g.
+// ['Tiger', 'Snickers']
 const kittyPrompts = {
   orangeKittyNames() {
-
-    // Return an array of just the names of kitties who are orange e.g.
-    // ['Tiger', 'Snickers']
     const result = kitties.reduce((orangeKittyNames, kitty) => {
       let kittyName = kitty.name;
       if (kitty.color === 'orange') {
@@ -39,13 +34,11 @@ const kittyPrompts = {
 
   sortByAge() {
     // Sort the kitties by their age
-    const result = kitties.sort((a,b) => (b.age - a.age));
-
+    const result = kitties((a,b) => (b.age - a.age));
     return result;
   },
 
   growUp() {
-
     const result = kitties
       .sort((a,b) => (b.age - a.age))
       .map(kitty => {
@@ -74,7 +67,6 @@ const kittyPrompts = {
 // DATASET: clubs from ./datasets/clubs
 const clubPrompts = {
   membersBelongingToClubs() {
-
     const result = clubs.reduce((memberList, elem) => {
       elem.members.forEach(member => {
         if (memberList[member]) {
@@ -101,24 +93,20 @@ const clubPrompts = {
 
 
 // DATASET: mods from ./datasets/mods
-const modPrompts = {
-  studentsPerMod() {
-    // Return an array of objects where the keys are mod (the number of the module)
-    // and studentsPerInstructor (how many students per instructor there are for that mod) e.g.
-    // [
+  // Return an array of objects where the keys are mod (the number of the module)
+  // and studentsPerInstructor (how many students per instructor there are for that mod) e.g.
+  // [
     //   { mod: 1, studentsPerInstructor: 9 },
     //   { mod: 2, studentsPerInstructor: 11 },
     //   { mod: 3, studentsPerInstructor: 10 },
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
-
+const modPrompts = {
+  studentsPerMod() {
     const result = mods.map(elem => {
       return {mod: elem.mod, studentsPerInstructor: elem.students/elem.instructors};
     });
     return result;
-
-    // Annotation:
-    // input -
   }
 };
 
@@ -140,22 +128,18 @@ const modPrompts = {
 
 // DATASET: cakes from ./datasets/cakes
 const cakePrompts = {
-  stockPerCake() {
-    // Return an array of objects that include just the flavor of the cake and how
-    // much of that cake is in stock e.g.
-    // [
+  // Return an array of objects that include just the flavor of the cake and how
+  // much of that cake is in stock e.g.
+  // [
     //    { flavor: 'dark chocolate', inStock: 15 },
     //    { flavor: 'yellow', inStock: 14 },
     //    ..etc
     // ]
-
+  stockPerCake() {
     const result = cakes.map(elem => {
       return {flavor: elem.cakeFlavor, inStock: elem.inStock};
     });
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   },
 
   onlyInStock() {
@@ -183,9 +167,6 @@ const cakePrompts = {
       return elem.inStock;
     });
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   },
 
   totalInventory() {
@@ -196,9 +177,6 @@ const cakePrompts = {
       return acc += elem.inStock;
     }, 0);
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   },
 
   allToppings() {
@@ -215,9 +193,6 @@ const cakePrompts = {
       return acc;
     }, []);
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   },
 
   groceryList() {
@@ -242,9 +217,6 @@ const cakePrompts = {
       return acc;
     }, {});
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   }
 };
 
@@ -275,11 +247,9 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.filter(elem => elem.program === 'FE');
+    // console.log(result);
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   },
 
   totalCapacities() {
@@ -289,22 +259,28 @@ const classPrompts = {
     //   feCapacity: 110,
     //   beCapacity: 96
     // }
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    let feTotal = 0;
+    let beTotal = 0;
+    const result = classrooms.reduce((acc, elem) => {
+      if (elem.program === 'FE') {
+        feTotal += elem.capacity;
+      }
+      // console.log(feTotal);
+      if (elem.program === 'BE') {
+        beTotal += elem.capacity;
+      }
+      acc = {feCapacity: feTotal, beCapacity: beTotal};
+      return acc;
+    }, {});
+    // console.log(result)
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   },
 
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.sort((a,b) => a.capacity - b.capacity);
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   }
 };
 
@@ -489,11 +465,10 @@ const breweryPrompts = {
     // Return the total beer count of all beers for every brewery e.g.
     // 40
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.reduce((count, brewery) => {
+      return count + brewery.beers.length;
+    }, 0);
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   },
 
   getBreweryBeerCount() {
@@ -505,11 +480,10 @@ const breweryPrompts = {
     // ...etc.
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.map(brewery => {
+      return { name: brewery.name, beerCount: brewery.beers.length };
+    });
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   },
 
   findHighestAbvBeer() {
@@ -517,11 +491,15 @@ const breweryPrompts = {
     // e.g.
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.reduce((highestAbvBeer, brewery) => {
+      brewery.beers.forEach(beer => {
+        if (beer.abv > highestAbvBeer.abv) {
+          highestAbvBeer = beer;
+        }
+      });
+      return highestAbvBeer;
+    }, {abv: 0});
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   }
 };
 
