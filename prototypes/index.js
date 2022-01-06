@@ -67,12 +67,12 @@ const kittyPrompts = {
 // DATASET: clubs from ./datasets/clubs
 const clubPrompts = {
   membersBelongingToClubs() {
-    const result = clubs.reduce((memberList, elem) => {
-      elem.members.forEach(member => {
+    const result = clubs.reduce((memberList, clubDetails) => {
+      clubDetails.members.forEach(member => {
         if (memberList[member]) {
-          memberList[member].push(elem.club);
+          memberList[member].push(clubDetails.club);
         } else {
-          memberList[member] = [elem.club];
+          memberList[member] = [clubDetails.club];
         }
       });
       return memberList;
