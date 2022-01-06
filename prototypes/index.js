@@ -138,35 +138,15 @@ const cakePrompts = {
     //    ..etc
     // ]
   stockPerCake() {
-    const result = cakes.map(cakeDetails => {
-      return {flavor: cakeDetails.cakeFlavor, inStock: cakeDetails.inStock};
+    const result = cakes.map(cake => {
+      return {flavor: cake.cakeFlavor, inStock: cake.inStock};
     });
     return result;
   },
 
   onlyInStock() {
-    // Return an array of only the cakes that are in stock
-    // e.g.
-    // [
-    //   {
-    //   cakeFlavor: 'dark chocolate',
-    //   filling: null,
-    //   frosting: 'dark chocolate ganache',
-    //   toppings: ['dutch process cocoa', 'toasted sugar', 'smoked sea salt'],
-    //   inStock: 15
-    // },
-    // {
-    //   cakeFlavor: 'yellow',
-    //   filling: 'citrus glaze',
-    //   frosting: 'chantilly cream',
-    //   toppings: ['berries', 'edible flowers'],
-    //   inStock: 14
-    // },
-    // ..etc
-    // ]
-
-    const result = cakes.filter(cakeDetails => {
-      return cakeDetails.inStock;
+    const result = cakes.filter(cake => {
+      return cake.inStock;
     });
     return result;
   },
@@ -174,9 +154,8 @@ const cakePrompts = {
   totalInventory() {
     // Return the total amount of cakes in stock e.g.
     // 59
-
-    const result = cakes.reduce((acc, elem) => {
-      return acc += elem.inStock;
+    const result = cakes.reduce((total, cake) => {
+      return total += cake.inStock;
     }, 0);
     return result;
   },
@@ -186,13 +165,13 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    const result = cakes.reduce((acc, elem) => {
-      elem.toppings.forEach(topping => {
-        if (!acc.includes(topping)) {
-          acc.push(topping);
+    const result = cakes.reduce((toppings, cake) => {
+      cake.toppings.forEach(topping => {
+        if (!toppings.includes(topping)) {
+          toppings.push(topping);
         }
       });
-      return acc;
+      return toppings;
     }, []);
     return result;
   },
@@ -208,15 +187,15 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    const result = cakes.reduce((acc, elem) => {
-      elem.toppings.forEach(topping => {
-        if (!acc[topping]) {
-          acc[topping] = 1;
+    const result = cakes.reduce((toppingAmounts, cake) => {
+      cake.toppings.forEach(topping => {
+        if (!toppingAmounts[topping]) {
+          toppingAmounts[topping] = 1;
         } else {
-          acc[topping]++;
+          toppingAmounts[topping]++;
         }
       });
-      return acc;
+      return toppingAmounts;
     }, {});
     return result;
   }
