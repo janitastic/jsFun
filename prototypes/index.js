@@ -285,11 +285,11 @@ const bookPrompts = {
 
 
     const result = books
-      .filter(book =>
-      book.genre !== 'Horror' && book.genre !== 'True Crime')
+      .filter(book => book.genre !== 'Horror' && book.genre !== 'True Crime')
       .map(notViolentBook => {
         return notViolentBook.title;
       });
+      // console.log(result)
     return result;
 
     // Annotation:
@@ -299,17 +299,23 @@ const bookPrompts = {
   },
   getNewBooks() {
     // return an array of objects containing all books that were
-    // published in the 90's and 00's. Inlucde the title and the year Eg:
+    // published in the 90's and 00's. Include the title and the year Eg:
 
     // [{ title: 'Harry Potter and the Sorcerer\'s Stone', year: 1997 },
     //  { title: 'Life of Pi', year: 2001 },
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = books
+      .filter(book => book.published >= 1990)
+      .map(filteredBook => {
+        return {title: filteredBook.title, year: filteredBook.published}
+      });
+      // console.log(result)
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // return an array .filter
+    // map the filtered books for only titles and published dates (smaller objects)
   }
 
 };
