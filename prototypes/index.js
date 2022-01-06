@@ -138,8 +138,8 @@ const cakePrompts = {
     //    ..etc
     // ]
   stockPerCake() {
-    const result = cakes.map(elem => {
-      return {flavor: elem.cakeFlavor, inStock: elem.inStock};
+    const result = cakes.map(cakeDetails => {
+      return {flavor: cakeDetails.cakeFlavor, inStock: cakeDetails.inStock};
     });
     return result;
   },
@@ -165,8 +165,8 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    const result = cakes.filter(elem => {
-      return elem.inStock;
+    const result = cakes.filter(cakeDetails => {
+      return cakeDetails.inStock;
     });
     return result;
   },
