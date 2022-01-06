@@ -34,7 +34,7 @@ const kittyPrompts = {
 
   sortByAge() {
     // Sort the kitties by their age
-    const result = kitties((a,b) => (b.age - a.age));
+    const result = kitties.sort((a,b) => (b.age - a.age));
     return result;
   },
 
@@ -303,11 +303,17 @@ const bookPrompts = {
     //   'Catch-22', 'Treasure Island']
 
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = books
+      .filter(book =>
+      book.genre !== 'Horror' && book.genre !== 'True Crime')
+      .map(notViolentBook => {
+        return notViolentBook.title;
+      });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Input array of objects
+    // output books[book].title that !== books[book].genre 'horror' || 'true crime'
 
   },
   getNewBooks() {
