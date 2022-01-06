@@ -103,8 +103,10 @@ const clubPrompts = {
     // ]
 const modPrompts = {
   studentsPerMod() {
-    const result = mods.map(elem => {
-      return {mod: elem.mod, studentsPerInstructor: elem.students/elem.instructors};
+    const result = mods.map(modDetails => {
+      return {
+        mod: modDetails.mod, studentsPerInstructor: modDetails.students/modDetails.instructors
+      };
     });
     return result;
   }
