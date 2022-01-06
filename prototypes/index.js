@@ -228,7 +228,7 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    const result = classrooms.filter(elem => elem.program === 'FE');
+    const result = classrooms.filter(classroom => classroom.program === 'FE');
     // console.log(result);
     return result;
   },
@@ -242,16 +242,16 @@ const classPrompts = {
     // }
     let feTotal = 0;
     let beTotal = 0;
-    const result = classrooms.reduce((acc, elem) => {
-      if (elem.program === 'FE') {
-        feTotal += elem.capacity;
+    const result = classrooms.reduce((bothTotals, classroom) => {
+      if (classroom.program === 'FE') {
+        feTotal += classroom.capacity;
       }
       // console.log(feTotal);
-      if (elem.program === 'BE') {
-        beTotal += elem.capacity;
+      if (classroom.program === 'BE') {
+        beTotal += classroom.capacity;
       }
-      acc = {feCapacity: feTotal, beCapacity: beTotal};
-      return acc;
+      bothTotals = {feCapacity: feTotal, beCapacity: beTotal};
+      return bothTotals;
     }, {});
     // console.log(result)
     return result;
